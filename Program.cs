@@ -6,14 +6,15 @@ internal class Program
     private static void Main(string[] args)
     {
         int score = 0;
-        int atempts = 0;
+        int attempts = 0;
         int faces = 0;
 
-        string name = string.Empty;
+        string name;
 
         bool isGameOver = false;
 
         Die die;
+        Player player;
 
         Console.Write("Vad heter du?: ");
         name = Console.ReadLine();
@@ -23,6 +24,7 @@ internal class Program
         if (!isInt) faces = 6;
 
         die = new(faces);
+        player = new(name);
 
         static bool CheckAnswer(int answer, int product)
         {
@@ -35,7 +37,7 @@ internal class Program
 
             while (Console.ReadKey().Key != ConsoleKey.Spacebar) { }
 
-            atempts++;
+            attempts++;
         }
 
 
@@ -86,9 +88,13 @@ internal class Program
             }
         } while (!isGameOver);
 
-        Console.WriteLine($"\nDu fick {score} poäng på {atempts} försök.");
+        Console.WriteLine($"\nDu fick {score} poäng på {attempts} försök.");
 
-        Console.WriteLine($"\nTack för att du spelade, {name}!");
+        player.Score = (double)score / attempts;
+
+        Console.WriteLine(player.Score);
+
+        Console.WriteLine($"\nTack för att du spelade, {player.Name}!");
 
         Console.ReadKey();
     }
