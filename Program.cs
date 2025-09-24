@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks.Sources;
+﻿using Franquies_Multiplication_Game;
+using System.Threading.Tasks.Sources;
 
 internal class Program
 {
@@ -6,12 +7,22 @@ internal class Program
     {
         int score = 0;
         int atempts = 0;
+        int faces = 0;
+
+        string name = string.Empty;
 
         bool isGameOver = false;
-        static int RollDice()
-        {
-            return new Random().Next(6) + 1;
-        }
+
+        Die die;
+
+        Console.Write("Vad heter du?: ");
+        name = Console.ReadLine();
+        Console.Write("Hur många sidor ska tärningarna ha?: ");
+        bool isInt = Int32.TryParse(Console.ReadLine().Trim(), out faces);
+
+        if (!isInt) faces = 6;
+
+        die = new(faces);
 
         static bool CheckAnswer(int answer, int product)
         {
@@ -36,8 +47,8 @@ internal class Program
 
             string input;
 
-            int num1 = RollDice();
-            int num2 = RollDice();
+            int num1 = die.Throw;
+            int num2 = die.Throw;
 
             int product = num1 * num2;
 
@@ -77,6 +88,8 @@ internal class Program
 
         Console.WriteLine($"\nDu fick {score} poäng på {atempts} försök.");
 
-        Console.WriteLine("\nTack för att du spelade!");
+        Console.WriteLine($"\nTack för att du spelade, {name}!");
+
+        Console.ReadKey();
     }
 }
